@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpPrefs() {
         Context context = this;
-         prefs = context.getSharedPreferences(
-                getString(R.string.Tasks), Context.MODE_PRIVATE);
+         prefs = context.getSharedPreferences(getString(R.string.Tasks), Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             Tasks.add(AddNewTask.getText().toString());
             editor.putString(TASKS,gson.toJson(Tasks));
         }
-
+        editor.putString(AddNewTask.getText().toString(),"Duo Task");
         editor.commit();
         AddNewTask.setText("");
         Snackbar message = Snackbar.make(view,"Your Task Was Saved",Snackbar.LENGTH_LONG);

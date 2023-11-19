@@ -22,17 +22,24 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         setUpPrefs();
         ListView TasksListView = findViewById(R.id.Tasks);
+        ListView TasksStatusListView = findViewById(R.id.Status);
         Gson gson = new Gson();
         String jason =   prefs.getString(TASKS,null);
         ArrayList<String> readyTasks = new ArrayList<>();
-         readyTasks = gson.fromJson(jason,readyTasks.getClass());
+        ArrayList<String> status = new ArrayList<>();
+        readyTasks = gson.fromJson(jason,readyTasks.getClass());
         ArrayAdapter<String> tasksfrompref = new ArrayAdapter<>(MainActivity2.this,R.layout.listviewtasks,readyTasks);
         TasksListView.setAdapter(tasksfrompref);
+        for (String readyTask : readyTasks) {
+            status.add(prefs.getString(readyTask,null));
+
+        }
+        ArrayAdapter<String> taskStatus = new ArrayAdapter<>(MainActivity2.this,R.layout.statuslist,status);
+        TasksStatusListView.setAdapter(taskStatus);
     }
     private void setUpPrefs() {
         Context context = this;
-        prefs = context.getSharedPreferences(
-                getString(R.string.Tasks), Context.MODE_PRIVATE);
+        prefs = context.getSharedPreferences(getString(R.string.Tasks), Context.MODE_PRIVATE);
 
     }
 }
